@@ -1,4 +1,4 @@
-describe('Journalist can login and create article', () => {
+describe("Journalist can login and create article", () => {
   context("Successfully", () => {
     beforeEach(() => {
       cy.server();

@@ -27,14 +27,12 @@ const Authenticate = () => {
         });
 
         history.replace({ pathname: "/" });
-
       } else {
         localStorage.removeItem("J-tockAuth-Storage");
         setMessage("Sorry, you don't have the necessary permission");
       }
-
     } catch (error) {
-      debugger
+      debugger;
       setMessage(error.response.data.errors[0]);
     }
   };
