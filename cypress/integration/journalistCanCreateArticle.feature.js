@@ -31,7 +31,7 @@ describe("Journalist can create article", () => {
       cy.get('[data-cy="create-article"]').contains("Create Article").click();
       cy.get('[data-cy="form-article"]').within(() => {
         cy.get('[data-cy="title"]').type("Title");
-        cy.get('[data-cy="lead"]').type("Lead");
+        cy.get('[data-cy="teaser"]').type("teaser");
         cy.get('[data-cy="category"]').click();
         cy.get('[data-cy="category"]').contains("Politics").click();
         cy.get('[data-cy="content"]').type("Content");
@@ -57,7 +57,7 @@ describe("Journalist can create article", () => {
     it("unsuccessfully without title", () => {
       cy.get('[data-cy="create-article"]').contains("Create Article").click();
       cy.get('[data-cy="form-article"]').within(() => {
-        cy.get('[data-cy="lead"]').type("Lead");
+        cy.get('[data-cy="teaser"]').type("teaser");
         cy.get('[data-cy="category"]').click();
         cy.get('[data-cy="category"]').contains("Politics").click();
         cy.get('[data-cy="content"]').type("Content");
