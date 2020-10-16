@@ -23,10 +23,10 @@ const Articles = {
           },
         }
       );
-      debugger
+      debugger;
       document.getElementById("create-article").reset();
 
-      // return result.data.message;
+      return result.data.message;
     } catch (error) {
       return error.response.data.message;
     }
