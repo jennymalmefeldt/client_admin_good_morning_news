@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { Message } from "semantic-ui-react";
@@ -17,7 +17,7 @@ const Authenticate = () => {
       const password = e.target.password.value;
       const response = await auth.signIn(email, password);
 
-      if (response.data.role == "journalist") {
+      if (response.data.role === "journalist") {
         dispatch({
           type: "AUTHENTICATE",
           payload: {
