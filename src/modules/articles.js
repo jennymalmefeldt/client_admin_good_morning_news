@@ -23,7 +23,6 @@ const Articles = {
           },
         }
       );
-      debugger;
       document.getElementById("create-article").reset();
 
       return result.data.message;

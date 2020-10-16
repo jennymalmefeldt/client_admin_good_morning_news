@@ -32,7 +32,6 @@ const Authenticate = () => {
         setMessage("Sorry, you don't have the necessary permission");
       }
     } catch (error) {
-      debugger;
       setMessage(error.response.data.errors[0]);
     }
   };

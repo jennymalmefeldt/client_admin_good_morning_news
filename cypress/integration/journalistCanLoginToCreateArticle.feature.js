@@ -83,6 +83,10 @@ describe("Journalist can login and create article", () => {
       });
     });
 
+    it("User with wrong role sees a error message", () => {
+      cy.get('[data-cy="message"]').should("contain", "Sorry, you don't have the necessary permission");
+    });
+
     it("User cannot see Create Article button", () => {
       cy.get('[data-cy="create-article"]').should("not.exist");
     });
