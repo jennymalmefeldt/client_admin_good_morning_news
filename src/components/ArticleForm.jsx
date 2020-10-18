@@ -60,7 +60,7 @@ const ArticleForm = () => {
               onChange={(e, data) => {
                 handleCategoryChange(data.value);
               }}
-              placeholder="Gender"
+              placeholder="Category"
               data-cy="category"
               id="category"
             />
