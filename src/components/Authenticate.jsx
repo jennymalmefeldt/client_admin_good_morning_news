@@ -22,7 +22,10 @@ const Authenticate = () => {
           type: "AUTHENTICATE",
           payload: {
             authenticated: response.success,
-            currentUser: response.data,
+            currentUser: {
+              email: response.data.email,
+              role: response.data.role
+            }
           },
         });
 
