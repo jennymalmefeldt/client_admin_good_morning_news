@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Container } from "semantic-ui-react";
+import { Form, Container, Checkbox, Segment, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
 
 const ArticleForm = () => {
@@ -16,50 +16,60 @@ const ArticleForm = () => {
       e.target.title.value,
       e.target.teaser.value,
       e.target.content.value,
-      selectedCategory
+      selectedCategory,
+      e.target.premium.checked
     );
     setMessage(result);
   };
 
   return (
     <Container>
-      <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
-        <Form.Group widths="equal" data-cy="form-article">
-          <Form.Input
-            fluid
-            label="Title"
-            placeholder="Title"
-            id="title"
-            data-cy="title"
-          />
-          <Form.Input
-            fluid
-            label="Teaser"
-            placeholder="Teaser"
-            data-cy="teaser"
-            id="teaser"
-          />
-          <Form.Select
-            fluid
-            label="Category"
-            options={options}
-            onChange={(e, data) => {
-              handleCategoryChange(data.value);
-            }}
-            placeholder="Gender"
-            data-cy="category"
-            id="category"
-          />
-          <Form.TextArea
-            label="Article"
-            placeholder="..."
-            data-cy="content"
-            id="content"
-          />
-        </Form.Group>
-        <Form.Button data-cy="save-article">Save Article</Form.Button>
-      </Form>
-      <p data-cy="save-article-message">{message}</p>
+      <Segment>
+        <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
+          <Form.Group widths="equal" data-cy="form-article">
+            <Form.Input
+              fluid
+              label="Title"
+              placeholder="Title"
+              id="title"
+              data-cy="title"
+            />
+            <Form.Input
+              fluid
+              label="Teaser"
+              placeholder="Teaser"
+              data-cy="teaser"
+              id="teaser"
+            />
+            <Form.Select
+              fluid
+              label="Category"
+              options={options}
+              onChange={(e, data) => {
+                handleCategoryChange(data.value);
+              }}
+              placeholder="Gender"
+              data-cy="category"
+              id="category"
+            />
+            <Form.TextArea
+              label="Article"
+              placeholder="..."
+              data-cy="content"
+              id="content"
+            />
+            <Form.Field>
+              <Checkbox toggle data-cy="premium" label="Premium Article?" id="premium" />
+            </Form.Field>
+          </Form.Group>
+          <Form.Button data-cy="save-article">Save Article</Form.Button>
+        </Form>
+        {message && (
+        <Message positive data-cy="save-article-message">
+          <Message.Header>{message}</Message.Header>
+        </Message>
+      )}
+      </Segment>
     </Container>
   );
 };
