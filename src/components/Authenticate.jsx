@@ -24,8 +24,8 @@ const Authenticate = () => {
             authenticated: response.success,
             currentUser: {
               email: response.data.email,
-              role: response.data.role
-            }
+              role: response.data.role,
+            },
           },
         });
 

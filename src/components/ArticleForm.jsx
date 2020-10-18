@@ -32,7 +32,12 @@ const ArticleForm = () => {
   return (
     <Container>
       <Segment>
-        <Form widths="equal" data-cy="form-article" id="create-article" onSubmit={onSubmit}>
+        <Form
+          widths="equal"
+          data-cy="form-article"
+          id="create-article"
+          onSubmit={onSubmit}
+        >
           <Form.Group widths="equal" data-cy="form-article">
             <Form.Input
               fluid
