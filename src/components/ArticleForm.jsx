@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Form, Container, Checkbox, Segment, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
+import { useHistory } from "react-router-dom";
 
 const ArticleForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const history = useHistory();
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
@@ -19,7 +21,12 @@ const ArticleForm = () => {
       selectedCategory,
       e.target.premium.checked
     );
-    setMessage(result);
+
+    if (result.status === 200) {
+      history.push("/", { message: result.data.message });
+    } else {
+      setMessage(result);
+    }
   };
 
   return (
@@ -59,16 +66,21 @@ const ArticleForm = () => {
               id="content"
             />
             <Form.Field>
-              <Checkbox toggle data-cy="premium" label="Premium Article?" id="premium" />
+              <Checkbox
+                toggle
+                data-cy="premium"
+                label="Premium Article?"
+                id="premium"
+              />
             </Form.Field>
           </Form.Group>
           <Form.Button data-cy="save-article">Save Article</Form.Button>
         </Form>
         {message && (
-        <Message positive data-cy="save-article-message">
-          <Message.Header>{message}</Message.Header>
-        </Message>
-      )}
+          <Message negative data-cy="save-article-message">
+            <Message.Header>{message}</Message.Header>
+          </Message>
+        )}
       </Segment>
     </Container>
   );

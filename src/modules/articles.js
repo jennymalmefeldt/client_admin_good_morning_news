@@ -24,9 +24,7 @@ const Articles = {
           },
         }
       );
-      document.getElementById("create-article").reset();
-
-      return result.data.message;
+      return result;
     } catch (error) {
       return error.response.data.message;
     }
