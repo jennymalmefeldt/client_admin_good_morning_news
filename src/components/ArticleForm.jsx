@@ -6,6 +6,15 @@ const ArticleForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+    const toBase64 = (file) => {
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = (error) => reject(error)
+      })
+    }
+
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };
@@ -17,9 +26,13 @@ const ArticleForm = () => {
       e.target.teaser.value,
       e.target.content.value,
       selectedCategory
-    );
-    setMessage(result);
-  };
+      );
+      setMessage(result);
+      let encodedImage
+      if (event.target.image.files[0]) {
+        encodedImage = await toBase64(event.target.image.files[0])
+      }
+    };
 
   return (
     <Container>
@@ -55,6 +68,14 @@ const ArticleForm = () => {
             placeholder="..."
             data-cy="content"
             id="content"
+          />
+          <Form.Input
+            fluid
+            label="Image"
+            placeholder="Image"
+            type="file"
+            data-cy="image"
+            id="image"
           />
         </Form.Group>
         <Form.Button data-cy="save-article">Save Article</Form.Button>
