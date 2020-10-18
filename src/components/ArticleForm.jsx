@@ -32,7 +32,7 @@ const ArticleForm = () => {
   return (
     <Container>
       <Segment>
-        <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
+        <Form widths="equal" data-cy="form-article" id="create-article" onSubmit={onSubmit}>
           <Form.Group widths="equal" data-cy="form-article">
             <Form.Input
               fluid
@@ -74,7 +74,9 @@ const ArticleForm = () => {
               />
             </Form.Field>
           </Form.Group>
-          <Form.Button data-cy="save-article">Save Article</Form.Button>
+          <Form.Button color="blue" data-cy="save-article">
+            Save Article
+          </Form.Button>
         </Form>
         {message && (
           <Message negative data-cy="save-article-message">

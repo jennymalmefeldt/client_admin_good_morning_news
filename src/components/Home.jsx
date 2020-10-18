@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { Message } from "semantic-ui-react";
+import { Message, Segment, Container } from "semantic-ui-react";
 
 const Home = () => {
   let location = useLocation();
@@ -15,21 +15,24 @@ const Home = () => {
   }, [location]);
 
   return (
-    <>
+    <Container textAlign="center">
       {message && (
         <Message positive data-cy="save-article-message">
           <Message.Header>{message}</Message.Header>
         </Message>
       )}
-      <Button
-        data-cy="create-article"
-        id="save-result"
-        as={Link}
-        to="/article_form"
-      >
-        Create Article
-      </Button>
-    </>
+      <Segment>
+        <Button
+          data-cy="create-article"
+          color="black"
+          id="save-result"
+          as={Link}
+          to="/article_form"
+        >
+          Create Article
+        </Button>
+      </Segment>
+    </Container>
   );
 };
 
