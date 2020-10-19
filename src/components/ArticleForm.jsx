@@ -8,6 +8,15 @@ const ArticleForm = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const history = useHistory();
 
+  const toBase64 = (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };
@@ -19,13 +28,15 @@ const ArticleForm = () => {
       e.target.teaser.value,
       e.target.content.value,
       selectedCategory,
-      e.target.premium.checked
+      e.target.premium.checked,
+      e.target.image
     );
 
     if (result.status === 200) {
       history.push("/", { message: result.data.message });
     } else {
       setMessage(result);
+
     }
   };
 
@@ -76,6 +87,14 @@ const ArticleForm = () => {
                 data-cy="premium"
                 label="Premium Article?"
                 id="premium"
+              />
+              <Form.Input
+                fluid
+                label="Image"
+                placeholder="Image"
+                id="image"
+                data-cy="image"
+                type="file"
               />
             </Form.Field>
           </Form.Group>
