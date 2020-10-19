@@ -14,6 +14,7 @@ const Articles = {
             content: content,
             category: category,
             premium: premium,
+            image: image
           },
         },
         {

@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import { Form, Container, Checkbox, Segment, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
 import { useHistory } from "react-router-dom";
+import toBase64 from "../modules/toBase64";
 
 const ArticleForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [image, setImage] = useState();
   const history = useHistory();
 
-  const toBase64 = (file) => {
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+const selectImage = (e) => {
+  setImage(e.target.files[0])
+};
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
@@ -23,20 +20,23 @@ const ArticleForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await Article.create(
       e.target.title.value,
       e.target.teaser.value,
       e.target.content.value,
       selectedCategory,
       e.target.premium.checked,
-      e.target.image
-    );
+      encodedImage
+      
+      if (image) {
+        encodedImage = await toBase64(image);
+      }
+      const result = await Article.create()
 
-    if (result.status === 200) {
-      history.push("/", { message: result.data.message });
-    } else {
+      if (result.status === 200) {
+          history.push("/", { message: result.data.message });
+        } else { 
+
       setMessage(result);
-
     }
   };
 
@@ -89,6 +89,7 @@ const ArticleForm = () => {
                 id="premium"
               />
               <Form.Input
+              onChange={selectImage}
                 fluid
                 label="Image"
                 placeholder="Image"
