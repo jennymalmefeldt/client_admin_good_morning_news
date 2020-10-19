@@ -7,12 +7,12 @@ import toBase64 from "../modules/toBase64";
 const ArticleForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [image, setImage] = useState();
+  // const [image, setImage] = useState();
   const history = useHistory();
 
-const selectImage = (e) => {
-  setImage(e.target.files[0])
-};
+// const selectImage = (e) => {
+//   setImage(e.target.files[0])
+// };
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
@@ -20,17 +20,26 @@ const selectImage = (e) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    let encodedImage
+      if (e.target.image.files[0]) {
+        encodedImage = await toBase64(e.target.image.files[0])
+        debugger;
+      }
+
+    const result = await Article.create(
       e.target.title.value,
       e.target.teaser.value,
       e.target.content.value,
       selectedCategory,
       e.target.premium.checked,
       encodedImage
+    )
       
-      if (image) {
-        encodedImage = await toBase64(image);
-      }
-      const result = await Article.create()
+      // if (image) {
+      //   encodedImage = await toBase64(image);
+      // }
+      
 
       if (result.status === 200) {
           history.push("/", { message: result.data.message });
@@ -89,7 +98,7 @@ const selectImage = (e) => {
                 id="premium"
               />
               <Form.Input
-              onChange={selectImage}
+              // onChange={selectImage}
                 fluid
                 label="Image"
                 placeholder="Image"
