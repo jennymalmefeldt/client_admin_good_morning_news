@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import LoginForm from "./LoginForm";
-import { Message } from "semantic-ui-react";
+import { Message, Container } from "semantic-ui-react";
 import auth from "../modules/auth";
 import { useDispatch } from "react-redux";
 
@@ -22,7 +22,10 @@ const Authenticate = () => {
           type: "AUTHENTICATE",
           payload: {
             authenticated: response.success,
-            currentUser: response.data,
+            currentUser: {
+              email: response.data.email,
+              role: response.data.role,
+            },
           },
         });
 
@@ -37,14 +40,14 @@ const Authenticate = () => {
   };
 
   return (
-    <>
+    <Container>
       <LoginForm login={login} />
       {message && (
         <Message negative data-cy="message">
           <Message.Header>{message}</Message.Header>
         </Message>
       )}
-    </>
+    </Container>
   );
 };
 
